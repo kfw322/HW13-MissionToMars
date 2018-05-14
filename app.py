@@ -16,14 +16,11 @@ def index():
 def scrape():
     mongo.db.drop_collection("mars")
     import win32api
-    win32api.MessageBox(None,"sup","bbbbbb")
     mars = mongo.db.mars
-    win32api.MessageBox(None,"hi","ccccccccc")
     mars_data = scrape_mars.scrape()
     print(mars_data)
-    win32api.MessageBox(None,json.dumps(mars_data),"dddddddddd")
+    win32api.MessageBox(None,json.dumps(mars_data),"this is the data in app.py")
     mars.update({}, mars_data, upsert=True)
-    win32api.MessageBox(None,"ayy lmao","eeeeeeeeeeee")
     return redirect("http://localhost:5000/")
 
 if __name__ == "__main__":

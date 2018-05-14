@@ -15,14 +15,11 @@ def scrape():
     mars = {}
     mars_data = {}
 
-    """     #Part 1: NASA MARS NEWS
+    #Part 1: NASA MARS NEWS
     browser.visit("https://mars.nasa.gov/news")
     soup = bs(browser.html,'html.parser')
-    news_title=soup.find(class_="content_title").text
-    news_paragraph=soup.find(class_="article_teaser_body").text
-    #print(news_title,"\n\n",news_paragraph)
-    mars["news_title"]=news_title
-    mars["news_paragraph"]=news_paragraph
+    mars["news_title"]=soup.find("div",class_="content_title").text
+    mars["news_paragraph"]=soup.find("div",class_="article_teaser_body").text
 
     #Part 2: JPL SPACE IMAGES- FEATURED IMAGE
     browser.visit("https://www.jpl.nasa.gov/spaceimages/?search=&category=Mars")
@@ -45,7 +42,7 @@ def scrape():
     mars_weather = soup.find("p",class_="TweetTextSize TweetTextSize--normal js-tweet-text tweet-text").text
     #print(mars_weather)
     mars["mars_weather"]=mars_weather
-    """
+    
 
     #Part 4: MARS FACTS
     browser.visit("https://space-facts.com/mars/")
@@ -86,6 +83,6 @@ def scrape():
     mars_data = mars
     print(mars_data)
     import win32api
-    win32api.MessageBox(None,json.dumps(mars_data),"aaaaaaaaa")
+    win32api.MessageBox(None,json.dumps(mars_data),"this is the data from scrape_mars.py")
     #mars_data = jsonify(news_title=news_title, news_paragraph=news_paragraph, featured_img_url=pic_url, mars_weather=mars_weather, data_html_string=data_html_string, hemisphere_url_list=img_url_dict)
     return mars_data
