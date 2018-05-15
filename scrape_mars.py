@@ -26,21 +26,16 @@ def scrape():
     soup = bs(browser.html,'html.parser')
     pic=soup.find("article",class_="carousel_item")
     p = pic.find("a")
-    #we have the small/medium image, with a link to the
-    #page that contains the full version.
     browser.visit("https://www.jpl.nasa.gov" + p["data-link"])
     soup = bs(browser.html,"html.parser")
     pic=soup.find("img", class_="main_image")
     pic_url = "https://www.jpl.nasa.gov" + pic["src"]
-    #print(pic_url)
     mars["featured_img_url"]=pic_url
-    #this is the full hi-res version of the picture found in 1st URL
 
     #Part 3: MARS WEATHER
     browser.visit("https://twitter.com/marswxreport")
     soup = bs(browser.html,"html.parser")
     mars_weather = soup.find("p",class_="TweetTextSize TweetTextSize--normal js-tweet-text tweet-text").text
-    #print(mars_weather)
     mars["mars_weather"]=mars_weather
     
 
@@ -54,12 +49,7 @@ def scrape():
     for l in labels:
         data_list.append([l.text, data[labels.index(l)].text])
     data_df = pd.DataFrame(data_list,columns=["Category","Data"])
-    data_html_string = data_df.to_html()#.replace("\n","").replace("\\n","")
-    #data_html_string = str(" ".join(data_html_string.split()))
-    #for th in range(0,9):
-    #   data_html_string = data_html_string.replace(f"<th>{th}</th>","")
-    #data_html_string = data_html_string.replace(r'<table border="1" class="dataframe"> <thead> <tr style="text-align: right;"> <th></th> <th>Category</th> <th>Data</th> </tr> </thead> <tbody>',"<table>").replace(r'</tbody>',"")
-    #print(data_html_string)
+    data_html_string = data_df.to_html()
     mars["data_html_string"]=data_html_string 
 
     #Part 5: MARS HEMISPHERES
@@ -81,8 +71,4 @@ def scrape():
         mars[str("hemisphere_url_dict_" + str(ic))]=img_dict
         ic+=1
     mars_data = mars
-    print(mars_data)
-    import win32api
-    win32api.MessageBox(None,json.dumps(mars_data),"this is the data from scrape_mars.py")
-    #mars_data = jsonify(news_title=news_title, news_paragraph=news_paragraph, featured_img_url=pic_url, mars_weather=mars_weather, data_html_string=data_html_string, hemisphere_url_list=img_url_dict)
     return mars_data

@@ -15,11 +15,8 @@ def index():
 @app.route("/scrape")
 def scrape():
     mongo.db.drop_collection("mars")
-    import win32api
     mars = mongo.db.mars
     mars_data = scrape_mars.scrape()
-    print(mars_data)
-    win32api.MessageBox(None,json.dumps(mars_data),"this is the data in app.py")
     mars.update({}, mars_data, upsert=True)
     return redirect("http://localhost:5000/")
 
