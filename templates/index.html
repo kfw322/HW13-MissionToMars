@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>HW 13: Mission to Mars</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="text-center" style="background-color: grey">
+      <h1>Mission To Mars</h1>
+      <p><a class="btn btn-primary btn-lg" href="/scrape" role="button"><span style="font-size:20px">Blast Off!<br></span><span style="font-size:10px">Scrape Mars Data</span></a></p>
+      <br>
+    </div>
+    <br>
+<div class="container-fluid">
+    {% if mars %}
+    <div class="row">
+      <div class="col-md-3 col-sm-6">
+        <h3>HEMISPHERE PICTURES</h3>
+          <div class="row">
+            <div class="col-sm-6">
+              <img src={{mars.hemisphere_url_dict_1.img_url}} style="max-width: 100%">
+              {{mars.hemisphere_url_dict_1.title}}
+              <img src={{mars.hemisphere_url_dict_2.img_url}} style="max-width: 100%">
+              {{mars.hemisphere_url_dict_2.title}}
+            </div>
+            <div class="col-sm-6">
+              <img src={{mars.hemisphere_url_dict_3.img_url}} style="max-width: 100%">
+              {{mars.hemisphere_url_dict_3.title}}
+              <img src={{mars.hemisphere_url_dict_4.img_url}} style="max-width: 100%">
+              {{mars.hemisphere_url_dict_4.title}}
+            </div>
+          </div>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <h3>MARS DATA</h3>
+        <table>{{mars.data_html_string}}</table>
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <h3>MOST RECENT ARTICLE</h3>
+        <h4><strong>{{mars.news_title}}</strong></h4>
+        <i>{{mars.news_paragraph}}</i>
+        <br>
+        <br>
+        <h3>CURRENT WEATHER</h3>
+        {{mars.mars_weather}}
+      </div>
+      <div class="col-md-3 col-sm-6">
+        <h3>FEATURED IMAGE</h3>
+        <img src={{mars.featured_img_url}} style="max-width: 100%">
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+</body>
+</html>
+
